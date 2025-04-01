@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bus")
+@CrossOrigin(origins = "http://localhost:5173") // Habilita CORS para el origen especificado
 public class BusController {
 
     @Autowired
