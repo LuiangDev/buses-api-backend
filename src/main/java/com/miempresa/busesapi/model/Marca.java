@@ -3,6 +3,8 @@ package com.miempresa.busesapi.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "marca")
 public class Marca {
@@ -15,6 +17,7 @@ public class Marca {
 
     // Relación: una marca puede estar asociada a varios buses
     @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Bus> buses;
 
     // Constructores

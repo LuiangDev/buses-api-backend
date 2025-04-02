@@ -4,13 +4,14 @@ import com.miempresa.busesapi.model.Bus;
 import com.miempresa.busesapi.repository.BusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/bus")
-@CrossOrigin(origins = "http://localhost:5173") // Habilita CORS para el origen especificado
+@CrossOrigin(origins = "*") // para permitir llamadas desde el frontend
 public class BusController {
 
     @Autowired
@@ -18,9 +19,12 @@ public class BusController {
 
     // Endpoint para obtener todos los buses
     @GetMapping
-    public List<Bus> getAllBuses() {
-        return busRepository.findAll();
+    public Page<Bus> getAllBuses(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return busRepository.findAll(pageable);
     }
+    
 
     // Endpoint para obtener un bus por su ID
     @GetMapping("/{id}")
@@ -29,4 +33,11 @@ public class BusController {
                 .map(bus -> ResponseEntity.ok().body(bus))
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping
+public ResponseEntity<Bus> crearBus(@RequestBody Bus nuevoBus) {
+    Bus busGuardado = busRepository.save(nuevoBus);
+    return ResponseEntity.ok(busGuardado);
+}
+
 }
