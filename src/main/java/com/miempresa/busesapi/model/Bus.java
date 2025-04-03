@@ -3,8 +3,6 @@ package com.miempresa.busesapi.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "bus")
 public class Bus {
