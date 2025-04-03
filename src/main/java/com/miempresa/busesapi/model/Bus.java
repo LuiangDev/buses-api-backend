@@ -25,7 +25,7 @@ public class Bus {
     // Relación: cada bus pertenece a una marca
     @ManyToOne
     @JoinColumn(name = "marca_id")
-    @JsonBackReference
+    //@JsonBackReference
     private Marca marca;
 
     // Constructor por defecto
