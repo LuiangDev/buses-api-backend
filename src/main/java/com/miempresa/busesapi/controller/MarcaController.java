@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Importaciones necesarias para el controlador de Marca
 @RestController
 @RequestMapping("/marca")
 @CrossOrigin(origins = "*") // para permitir llamadas desde el frontend
 public class MarcaController {
-
+    // Inyección de dependencias para el repositorio de Marca
     @Autowired
     private MarcaRepository marcaRepository;
 
-    // Obtener todas las marcas
+    // Obtenemos todas las marcas
     @GetMapping
     public List<Marca> getAllMarcas() {
         return marcaRepository.findAll();
     }
 
-    // Crear una nueva marca
+    // Creamos una nueva marca
     @PostMapping
     public ResponseEntity<Marca> createMarca(@RequestBody Marca nuevaMarca) {
         Marca marcaCreada = marcaRepository.save(nuevaMarca);

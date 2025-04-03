@@ -3,10 +3,15 @@ package com.miempresa.busesapi.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Clase que representa un Bus en el sistema.
+ * Contiene información sobre el bus, incluyendo su número, placa, fecha de creación,
+ * características y estado de actividad.
+ */
 @Entity
 @Table(name = "bus")
 public class Bus {
-
+    // Atributos de la clase Bus
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,21 +25,20 @@ public class Bus {
     private String caracteristicas;
     private Boolean activo;
 
-    // Relación: cada bus pertenece a una marca
+    // Relación con la entidad Marca
     @ManyToOne
     @JoinColumn(name = "marca_id")
-    //@JsonBackReference
     private Marca marca;
 
     // Constructor por defecto
     public Bus() {
     }
 
-    // Getters y Setters
+    // Constructores con parámetros
     public Long getId() {
         return id;
     }
-
+    //// Getters y Setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -59,6 +63,7 @@ public class Bus {
         return fechaCreacion;
     }
 
+    // Método que se ejecuta antes de persistir el objeto
     @PrePersist
     public void prePersist() {
         this.fechaCreacion = LocalDateTime.now();

@@ -5,25 +5,32 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Clase que representa una Marca de bus en el sistema.
+ * Contiene información sobre la marca y su relación con los buses.
+ */
 @Entity
 @Table(name = "marca")
 public class Marca {
 
+    // Atributos de la clase Marca
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
 
-    // Relación: una marca puede estar asociada a varios buses
+    // Relación con la entidad Bus
     @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
+    // Se ignora la serialización de la lista de buses para evitar bucles infinitos
     @JsonIgnore
     private List<Bus> buses;
 
-    // Constructores
+    // Constructor por defecto
     public Marca() {
     }
 
+    // Constructores con parámetros
     public Marca(String nombre) {
         this.nombre = nombre;
     }
